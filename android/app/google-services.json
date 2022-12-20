@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "1073456693110",
+    "project_id": "patient-b3934",
+    "storage_bucket": "patient-b3934.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073456693110:android:5a60fbc997271365930457",
+        "android_client_info": {
+          "package_name": "com.dragon.patient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073456693110-kf4591sph8jj52k0e238bnk6jeg65oad.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dragon.patient",
+            "certificate_hash": "82e04c35318d8d2a40cec32ef6ce99f5bbcf02d0"
+          }
+        },
+        {
+          "client_id": "1073456693110-a10vnj75pkhbk93q20nd6durn923o48q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANQy9RN5v1gRQyDHcbrdicekKbxHbhRck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073456693110-a10vnj75pkhbk93q20nd6durn923o48q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1073456693110-pgn1l31q5ohuor9sio19750gl664qrns.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.patientAdmin"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073456693110:android:fd61c987a4efd267930457",
+        "android_client_info": {
+          "package_name": "com.example.patient_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073456693110-a10vnj75pkhbk93q20nd6durn923o48q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANQy9RN5v1gRQyDHcbrdicekKbxHbhRck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073456693110-a10vnj75pkhbk93q20nd6durn923o48q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1073456693110-pgn1l31q5ohuor9sio19750gl664qrns.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.patientAdmin"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
