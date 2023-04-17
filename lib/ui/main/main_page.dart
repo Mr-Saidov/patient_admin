@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:patient_admin/ui/consultation_language/consultation_language_list_page.dart';
 import 'package:patient_admin/ui/doctor/doctor_list_page.dart';
+import 'package:patient_admin/ui/drug/drug_list_page.dart';
+import 'package:patient_admin/ui/drug_types/drug_types_page.dart';
 import 'package:patient_admin/ui/hospitals/hospitals_list_screen.dart';
 import 'package:patient_admin/ui/pharmacy/pharmacy_list_screen.dart';
 import 'package:patient_admin/ui/professions/professions_list_page.dart';
 import 'package:patient_admin/ui/regions/regions_list_page.dart';
+import 'package:patient_admin/ui/users/user_list_page.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -23,7 +26,7 @@ class MainPage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => RegionListPage(),
+                    builder: (context) => const RegionListPage(),
                   ));
             },
           ),
@@ -34,7 +37,29 @@ class MainPage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PharmacyScreen(),
+                    builder: (context) => const PharmacyScreen(),
+                  ));
+            },
+          ),
+          getDivider(),
+          ListTile(
+            title: const Text("Dori turlari"),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DrugTypesPage(),
+                  ));
+            },
+          ),
+          getDivider(),
+          ListTile(
+            title: const Text("Dorilar"),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DrugListPage(),
                   ));
             },
           ),
@@ -79,6 +104,17 @@ class MainPage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const DoctorListPage(),
+                  ));
+            },
+          ),
+          getDivider(),
+          ListTile(
+            title: const Text("Foydalanuvchilar"),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const UsersPage(),
                   ));
             },
           ),

@@ -1,30 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:patient_admin/model/pharmacy_model.dart';
-import 'package:patient_admin/ui/hospitals/add_hospital_page.dart';
-import 'package:patient_admin/ui/pharmacy/add_pharmacy_page.dart';
+import 'package:patient_admin/model/universal_model.dart';
+import 'package:patient_admin/ui/drug_types/add_drug_type_page.dart';
 import 'package:patient_admin/utils/constants.dart';
 
-class HospitalsListScreen extends StatelessWidget {
-  const HospitalsListScreen({Key? key}) : super(key: key);
+class DrugTypesPage extends StatelessWidget {
+  const DrugTypesPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Shifoxonalar"),
+        title: const Text("Dori turlari"),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection(hospitals)
-            .orderBy('name', descending: true)
+            .collection(drugType)
+            .orderBy('name', descending: false)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!.docs.isEmpty) {
               return const Center(
                 child: Text(
-                  "Shifoxonalar mavjud emas",
+                  "Dori turlari mavjud emas",
                   style: TextStyle(
                     fontSize: 18,
                   ),
@@ -36,7 +35,7 @@ class HospitalsListScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 itemBuilder: (context, index) {
                   final itemData = snapshot.data!.docs[index];
-                  final element = PharmacyModel.fromJson(itemData);
+                  final element = UniversalModel.fromJson(itemData);
                   return ListTile(
                     title: Row(
                       children: [
@@ -44,12 +43,10 @@ class HospitalsListScreen extends StatelessWidget {
                         IconButton(
                             onPressed: () {
                               Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return AddHospitalPage(
-                                    hospitalId: itemData.id,
-                                    pharmacyModel: element,
-                                  );
-                                },
+                                builder: (context) => AddDrugTypePage(
+                                    drugTypeId: itemData.id,
+                                    universalModel: element,
+                                  ),
                               ));
                             },
                             icon: const Icon(Icons.edit)),
@@ -60,15 +57,13 @@ class HospitalsListScreen extends StatelessWidget {
                           ),
                           onPressed: () {
                             FirebaseFirestore.instance
-                                .collection(hospitals)
+                                .collection(drugType)
                                 .doc(itemData.id)
                                 .delete();
                           },
                         ),
                       ],
                     ),
-                    subtitle: Text("Tel: ${element.phone}"),
-                    onTap: () {},
                   );
                   // return buildItem(index, snapshot.data?.docs[index], context);
                 },
@@ -85,17 +80,15 @@ class HospitalsListScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddHospitalPage(),
-                  ));
-            },
-          )),
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AddDrugTypePage(),
+              ));
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

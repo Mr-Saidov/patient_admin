@@ -7,23 +7,22 @@ Widget getTextField(
   Function? onTextChanged,
   int maxLines = 1,
   TextEditingController? controller,
-}) {
-  return TextField(
-    onChanged: (text) {
-      onTextChanged?.call(text);
-    },
-    controller: controller,
-    maxLines: 1,
-    decoration: InputDecoration(
-      hintText: hint,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(
-          12,
+}) =>
+    TextField(
+      onChanged: (text) {
+        onTextChanged?.call(text);
+      },
+      controller: controller,
+      maxLines: 1,
+      decoration: InputDecoration(
+        hintText: hint,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            12,
+          ),
         ),
       ),
-    ),
-  );
-}
+    );
 
 Widget getDivider({double? height}) {
   return Divider(

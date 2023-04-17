@@ -15,32 +15,33 @@ class DoctorModel {
   String? workHistory;
   String? bio;
   String? workTime;
-  String? ns10;
-  String? ns11;
   String? lat;
   String? long;
   String? role;
+  String? regionId;
+  String? districtId;
 
-  DoctorModel(
-      {this.id,
-        this.fullname,
-        this.email,
-        this.avatar,
-        this.password,
-        this.profession,
-        this.language,
-        this.experience,
-        this.rating,
-        this.birthYear,
-        this.education,
-        this.workHistory,
-        this.bio,
-        this.workTime,
-        this.ns10,
-        this.ns11,
-        this.role,
-        this.lat,
-        this.long});
+  DoctorModel({
+    this.id,
+    this.fullname,
+    this.email,
+    this.avatar,
+    this.password,
+    this.profession,
+    this.language,
+    this.experience,
+    this.rating,
+    this.birthYear,
+    this.education,
+    this.workHistory,
+    this.bio,
+    this.workTime,
+    this.role,
+    this.lat,
+    this.long,
+    this.regionId,
+    this.districtId,
+  });
 
   DoctorModel.fromJson(QueryDocumentSnapshot json) {
     id = json['id'];
@@ -58,10 +59,10 @@ class DoctorModel {
     bio = json['bio'];
     workTime = json['workTime'];
     role = json['role'];
-    ns10 = json['ns10'];
-    ns11 = json['ns11'];
     lat = json['lat'];
     long = json['long'];
+    regionId = json['regionId'];
+    districtId = json['districtId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -80,11 +81,11 @@ class DoctorModel {
     data['workHistory'] = this.workHistory;
     data['bio'] = this.bio;
     data['workTime'] = this.workTime;
-    data['ns10'] = this.ns10;
-    data['ns11'] = this.ns11;
     data['lat'] = this.lat;
     data['long'] = this.long;
     data['role'] = this.role;
+    data['regionId'] = this.regionId;
+    data['districtId'] = this.districtId;
     return data;
   }
 }

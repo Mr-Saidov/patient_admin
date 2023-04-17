@@ -66,6 +66,7 @@ class PharmacyScreen extends StatelessWidget {
                         ),
                       ],
                     ),
+                    subtitle: Text("Tel: ${element.phone}"),
                     onTap: () {},
                   );
                   // return buildItem(index, snapshot.data?.docs[index], context);

@@ -1,30 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:patient_admin/model/pharmacy_model.dart';
-import 'package:patient_admin/ui/hospitals/add_hospital_page.dart';
-import 'package:patient_admin/ui/pharmacy/add_pharmacy_page.dart';
-import 'package:patient_admin/utils/constants.dart';
+import 'package:patient_admin/model/drug_model.dart';
+import 'package:patient_admin/ui/drug/add_drug_page.dart';
+import 'package:patient_admin/ui/drug_types/add_drug_type_page.dart';
 
-class HospitalsListScreen extends StatelessWidget {
-  const HospitalsListScreen({Key? key}) : super(key: key);
+import '../../utils/constants.dart';
+
+class DrugListPage extends StatelessWidget {
+  const DrugListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Shifoxonalar"),
+        title: const Text("Dorilar"),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection(hospitals)
-            .orderBy('name', descending: true)
+            .collection(drugs)
+            .orderBy('name', descending: false)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!.docs.isEmpty) {
               return const Center(
                 child: Text(
-                  "Shifoxonalar mavjud emas",
+                  "Dorilar mavjud emas",
                   style: TextStyle(
                     fontSize: 18,
                   ),
@@ -32,25 +33,24 @@ class HospitalsListScreen extends StatelessWidget {
               );
             } else {
               return ListView.separated(
-                separatorBuilder: (context, index) => Divider(),
+                separatorBuilder: (context, index) => const Divider(),
                 padding: const EdgeInsets.all(10.0),
                 itemBuilder: (context, index) {
                   final itemData = snapshot.data!.docs[index];
-                  final element = PharmacyModel.fromJson(itemData);
+                  final element = DrugModel.fromJson(itemData);
                   return ListTile(
                     title: Row(
                       children: [
                         Expanded(child: Text("${element.name}")),
                         IconButton(
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return AddHospitalPage(
-                                    hospitalId: itemData.id,
-                                    pharmacyModel: element,
-                                  );
-                                },
-                              ));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddDrugPage(
+                                      drugModel: element,
+                                    ),
+                                  ));
                             },
                             icon: const Icon(Icons.edit)),
                         IconButton(
@@ -60,15 +60,15 @@ class HospitalsListScreen extends StatelessWidget {
                           ),
                           onPressed: () {
                             FirebaseFirestore.instance
-                                .collection(hospitals)
+                                .collection(drugs)
                                 .doc(itemData.id)
                                 .delete();
                           },
                         ),
                       ],
                     ),
-                    subtitle: Text("Tel: ${element.phone}"),
-                    onTap: () {},
+                    subtitle:
+                        Text("Ishlab chiqargan davlat: ${element.country}"),
                   );
                   // return buildItem(index, snapshot.data?.docs[index], context);
                 },
@@ -85,17 +85,14 @@ class HospitalsListScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddHospitalPage(),
-                  ));
-            },
-          )),
+        child: const Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (con) =>  AddDrugPage()),
+          );
+        },
+      ),
     );
   }
 }

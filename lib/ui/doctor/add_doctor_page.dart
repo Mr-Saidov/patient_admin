@@ -11,6 +11,8 @@ import 'package:patient_admin/model/universal_model.dart';
 import 'package:patient_admin/ui/base/components.dart';
 import 'package:patient_admin/utils/constants.dart';
 
+import '../../utils/common_widgets.dart';
+
 class AddDoctorPage extends StatefulWidget {
   const AddDoctorPage({Key? key, this.doctorId, this.doctorModel})
       : super(key: key);
@@ -41,8 +43,15 @@ class _AddDoctorPageState extends State<AddDoctorPage> {
   List<UniversalModel> allLanguagesList = [];
   String? avatarPath;
 
+  String? selectedRegionId;
+  String? selectedDistrictId;
+
   @override
   Widget build(BuildContext context) {
+    if (!isSetFirstTime) {
+      selectedRegionId = widget.doctorModel?.regionId;
+      selectedDistrictId = widget.doctorModel?.districtId;
+    }
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (isSetFirstTime) return;
       if (widget.doctorModel != null) {
@@ -66,7 +75,7 @@ class _AddDoctorPageState extends State<AddDoctorPage> {
     });
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Dorixona qo'shish"),
+          title: const Text("Shifokor qo'shish"),
         ),
         body: ListView(
           padding: EdgeInsets.only(left: 8, right: 8, bottom: 24),
@@ -199,6 +208,30 @@ class _AddDoctorPageState extends State<AddDoctorPage> {
               controller: workTimeController,
             ),
             getDivider(),
+            getRegionDistricts(
+                FirebaseFirestore.instance
+                    .collection(regions)
+                    .orderBy('name', descending: true),
+                "Viloyat",
+                selectedRegionId, (UniversalModel m) {
+              if (selectedRegionId != m.id) selectedDistrictId = null;
+              selectedRegionId = m.id;
+              setState(() {});
+            }),
+            if (selectedRegionId != null) getDivider(),
+            if (selectedRegionId != null)
+              getRegionDistricts(
+                  FirebaseFirestore.instance
+                      .collection(regions)
+                      .doc(selectedRegionId)
+                      .collection(selectedRegionId!)
+                      .orderBy('name', descending: true),
+                  "Tuman",
+                  selectedDistrictId, (UniversalModel m) {
+                selectedDistrictId = m.id;
+                setState(() {});
+              }),
+            getDivider(),
             const Text("Geo manzili :"),
             const SizedBox(
               height: 12,
@@ -237,26 +270,26 @@ class _AddDoctorPageState extends State<AddDoctorPage> {
                 transaction.set(
                   documentReference,
                   DoctorModel(
-                          id: id,
-                          fullname: nameController.text,
-                          email: emailController.text,
-                          avatar: avatarPath,
-                          bio: bioController.text,
-                          birthYear: birthYearController.text,
-                          education: educationController.text,
-                          experience: experienceController.text,
-                          language: currentLanguagesList,
-                          password: passwordController.text,
-                          ns10: "1",
-                          ns11: "1",
-                          profession: currentProfessionsList,
-                          rating: ratingController.text,
-                          workHistory: workHistoryController.text,
-                          workTime: workTimeController.text,
-                          lat: latController.text,
-                          long: longController.text,
-                          role: "3")
-                      .toJson(),
+                    id: id,
+                    fullname: nameController.text,
+                    email: emailController.text,
+                    avatar: avatarPath,
+                    bio: bioController.text,
+                    birthYear: birthYearController.text,
+                    education: educationController.text,
+                    experience: experienceController.text,
+                    language: currentLanguagesList,
+                    password: passwordController.text,
+                    profession: currentProfessionsList,
+                    rating: ratingController.text,
+                    workHistory: workHistoryController.text,
+                    workTime: workTimeController.text,
+                    lat: latController.text,
+                    long: longController.text,
+                    role: "3",
+                    regionId: selectedRegionId,
+                    districtId: selectedDistrictId,
+                  ).toJson(),
                 );
               });
               Navigator.pop(context);

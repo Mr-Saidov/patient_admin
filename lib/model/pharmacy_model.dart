@@ -9,16 +9,21 @@ class PharmacyModel {
   String? phone;
   String? lat;
   String? long;
+  String? regionId;
+  String? districtId;
 
-  PharmacyModel(
-      {this.id,
-        this.name,
-        this.address,
-        this.about,
-        this.timeTable,
-        this.phone,
-        this.lat,
-        this.long});
+  PharmacyModel({
+    this.id,
+    this.name,
+    this.address,
+    this.about,
+    this.timeTable,
+    this.phone,
+    this.lat,
+    this.long,
+    this.regionId,
+    this.districtId,
+  });
 
   PharmacyModel.fromJson(QueryDocumentSnapshot json) {
     id = json['id'];
@@ -29,18 +34,22 @@ class PharmacyModel {
     phone = json['phone'];
     lat = json['lat'];
     long = json['long'];
+    regionId = json['regionId'];
+    districtId = json['districtId'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['address'] = this.address;
-    data['about'] = this.about;
-    data['time_table'] = this.timeTable;
-    data['phone'] = this.phone;
-    data['lat'] = this.lat;
-    data['long'] = this.long;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['address'] = address;
+    data['about'] = about;
+    data['time_table'] = timeTable;
+    data['phone'] = phone;
+    data['lat'] = lat;
+    data['long'] = long;
+    data['regionId'] = regionId;
+    data['districtId'] = districtId;
     return data;
   }
 }

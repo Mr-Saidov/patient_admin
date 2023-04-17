@@ -42,7 +42,14 @@ class DoctorListPage extends StatelessWidget {
                   return ListTile(
                     title: Row(
                       children: [
-                        Expanded(child: Text("${element.fullname}")),
+                        Expanded(child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("${element.fullname}"),
+                            Text("Login: ${element.email}"),
+                            Text("Parol: ${element.password}"),
+                          ],
+                        )),
                         IconButton(
                             onPressed: () {
                               Navigator.push(context, MaterialPageRoute(

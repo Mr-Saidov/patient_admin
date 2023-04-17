@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserData {
   String? name;
   String? surname;
@@ -7,11 +9,11 @@ class UserData {
 
   UserData({this.name, this.surname, this.email, this.avatar, this.password});
 
-  UserData.fromJson(Map<String, dynamic> json) {
+  UserData.fromJson(QueryDocumentSnapshot json) {
     name = json['name'];
     surname = json['surname'];
     email = json['email'];
-    avatar = json['avatar'];
+    // avatar = json['avatar'];
     password = json['password'];
   }
 
